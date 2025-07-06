@@ -50,7 +50,7 @@ async def async_setup_entry(
     )
 
     sensors = [
-        HailinModbusSensor(coordinator, "PM2.5", "μg/m³", "pm25", device_info, host, port),
+        HailinModbusSensor(coordinator, "PM2.5", "µg/m³", "pm25", device_info, host, port),
         HailinModbusSensor(coordinator, "温度", UnitOfTemperature.CELSIUS, "temperature", device_info, host, port),
         HailinModbusSensor(coordinator, "湿度", PERCENTAGE, "humidity", device_info, host, port),
     ]
