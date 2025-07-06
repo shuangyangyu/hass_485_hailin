@@ -20,6 +20,7 @@ from homeassistant.helpers.update_coordinator import (
     CoordinatorEntity,
     DataUpdateCoordinator,
 )
+from homeassistant.helpers.device_registry import DeviceInfo
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -39,18 +40,19 @@ async def async_setup_entry(
     await coordinator.async_config_entry_first_refresh()
 
     # 设备信息，用于将所有传感器归类到同一个设备
-    device_info = {
-        "identifiers": {(DOMAIN, f"{host}_{port}")},
-        "name": f"海林环境监测仪 ({host}:{port})",
-        "manufacturer": "海林",
-        "model": "Modbus 环境监测仪",
-        "sw_version": "1.0",
-    }
+    device_info = DeviceInfo(
+        identifiers={(DOMAIN, f"{host}_{port}")},
+        name=f"海林环境监测仪",
+        manufacturer="海林",
+        model="Modbus 环境监测仪",
+        sw_version="1.0",
+        configuration_url=f"http://{host}:{port}",
+    )
 
     sensors = [
         HailinModbusSensor(coordinator, "PM2.5", "μg/m³", "pm25", device_info, host, port),
-        HailinModbusSensor(coordinator, "Temperature", UnitOfTemperature.CELSIUS, "temperature", device_info, host, port),
-        HailinModbusSensor(coordinator, "Humidity", PERCENTAGE, "humidity", device_info, host, port),
+        HailinModbusSensor(coordinator, "温度", UnitOfTemperature.CELSIUS, "temperature", device_info, host, port),
+        HailinModbusSensor(coordinator, "湿度", PERCENTAGE, "humidity", device_info, host, port),
     ]
 
     async_add_entities(sensors, True)
@@ -93,6 +95,7 @@ class HailinModbusSensor(CoordinatorEntity, SensorEntity):
         self._key = key
         self._attr_unique_id = f"hailin_modbus_{host}_{port}_{key}"
         self._attr_device_info = device_info
+        self._attr_has_entity_name = True
 
         if key == "pm25":
             self._attr_device_class = SensorDeviceClass.PM25
