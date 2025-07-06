@@ -10,9 +10,8 @@ from homeassistant.components.sensor import SensorEntity, SensorDeviceClass
 from homeassistant.const import (
     CONF_HOST,
     CONF_PORT,
-    TEMP_CELSIUS,
-    CONCENTRATION_MICROGRAMS_PER_CUBIC_METER,
     PERCENTAGE,
+    UnitOfTemperature,
 )
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
@@ -40,8 +39,8 @@ async def async_setup_entry(
     await coordinator.async_config_entry_first_refresh()
 
     sensors = [
-        HailinModbusSensor(coordinator, "PM2.5", CONCENTRATION_MICROGRAMS_PER_CUBIC_METER, "pm25"),
-        HailinModbusSensor(coordinator, "Temperature", TEMP_CELSIUS, "temperature"),
+        HailinModbusSensor(coordinator, "PM2.5", "μg/m³", "pm25"),
+        HailinModbusSensor(coordinator, "Temperature", UnitOfTemperature.CELSIUS, "temperature"),
         HailinModbusSensor(coordinator, "Humidity", PERCENTAGE, "humidity"),
     ]
 

@@ -1,9 +1,9 @@
 {
     "domain": "hailin_modbus",
     "name": "Hailin Modbus Sensor",
-    "documentation": "https://github.com/yourusername/hailin_modbus",
+    "documentation": "https://github.com/shuangyangyu/hailin_modbus",
     "dependencies": [],
-    "codeowners": ["@yourusername"],
+    "codeowners": ["@shuangyangyu"],
     "requirements": ["pymodbus==2.5.3"],
     "config_flow": true,
     "iot_class": "local_polling",
