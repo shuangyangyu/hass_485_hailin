@@ -99,13 +99,16 @@ class HailinModbusSensor(CoordinatorEntity, SensorEntity):
 
         if key == "pm25":
             self._attr_device_class = SensorDeviceClass.PM25
-            self._attr_icon = "mdi:molecule"
+            self._attr_icon = "mdi:air-filter"
+            self._attr_state_class = "measurement"
         elif key == "temperature":
             self._attr_device_class = SensorDeviceClass.TEMPERATURE
             self._attr_icon = "mdi:thermometer"
+            self._attr_state_class = "measurement"
         elif key == "humidity":
             self._attr_device_class = SensorDeviceClass.HUMIDITY
             self._attr_icon = "mdi:water-percent"
+            self._attr_state_class = "measurement"
 
     @property
     def native_value(self):

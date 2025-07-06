@@ -29,7 +29,10 @@ class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
                 if not result:
                     errors["base"] = "cannot_connect"
                 else:
-                    return self.async_create_entry(title="Hailin Modbus", data=user_input)
+                    return self.async_create_entry(
+                        title="海林环境监测仪", 
+                        data=user_input
+                    )
             except Exception:
                 errors["base"] = "unknown"
 
@@ -39,5 +42,11 @@ class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
         })
 
         return self.async_show_form(
-            step_id="user", data_schema=data_schema, errors=errors
+            step_id="user", 
+            data_schema=data_schema, 
+            errors=errors,
+            description_placeholders={
+                "device_name": "海林环境监测仪",
+                "device_icon": "mdi:home-thermometer-outline"
+            }
         )
