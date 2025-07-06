@@ -7,6 +7,6 @@
     "requirements": ["pymodbus==2.5.3"],
     "config_flow": true,
     "iot_class": "local_polling",
-    "version": "0.1.1"
+    "version": "0.1.2"
   }
   
