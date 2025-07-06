@@ -1,0 +1,6 @@
+{
+  "hailin": {
+    "name": "海林",
+    "integrations": ["hailin_modbus"]
+  }
+} 
