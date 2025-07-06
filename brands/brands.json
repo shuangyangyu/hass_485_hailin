@@ -1,0 +1,7 @@
+{
+  "hailin": {
+    "name": "海林",
+    "integrations": ["hailin_modbus"],
+    "iot_standards": ["modbus"]
+  }
+} 

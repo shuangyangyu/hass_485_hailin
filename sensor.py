@@ -43,7 +43,7 @@ async def async_setup_entry(
     device_info = DeviceInfo(
         identifiers={(DOMAIN, f"{host}_{port}")},
         name=f"海林环境监测仪",
-        manufacturer="海林",
+        manufacturer="hailin",
         model="Modbus 环境监测仪",
         sw_version="1.0",
         configuration_url=f"http://{host}:{port}",
