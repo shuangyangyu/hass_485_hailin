@@ -38,10 +38,19 @@ async def async_setup_entry(
     coordinator = HailinTCPCoordinator(hass, host, port)
     await coordinator.async_config_entry_first_refresh()
 
+    # 设备信息，用于将所有传感器归类到同一个设备
+    device_info = {
+        "identifiers": {(DOMAIN, f"{host}_{port}")},
+        "name": f"海林环境监测仪 ({host}:{port})",
+        "manufacturer": "海林",
+        "model": "Modbus 环境监测仪",
+        "sw_version": "1.0",
+    }
+
     sensors = [
-        HailinModbusSensor(coordinator, "PM2.5", "μg/m³", "pm25"),
-        HailinModbusSensor(coordinator, "Temperature", UnitOfTemperature.CELSIUS, "temperature"),
-        HailinModbusSensor(coordinator, "Humidity", PERCENTAGE, "humidity"),
+        HailinModbusSensor(coordinator, "PM2.5", "μg/m³", "pm25", device_info, host, port),
+        HailinModbusSensor(coordinator, "Temperature", UnitOfTemperature.CELSIUS, "temperature", device_info, host, port),
+        HailinModbusSensor(coordinator, "Humidity", PERCENTAGE, "humidity", device_info, host, port),
     ]
 
     async_add_entities(sensors, True)
@@ -76,13 +85,14 @@ class HailinTCPCoordinator(DataUpdateCoordinator):
 class HailinModbusSensor(CoordinatorEntity, SensorEntity):
     """Representation of a Hailin Modbus sensor."""
 
-    def __init__(self, coordinator, name, unit, key):
+    def __init__(self, coordinator, name, unit, key, device_info, host, port):
         """Initialize the sensor."""
         super().__init__(coordinator)
         self._attr_name = name
         self._attr_native_unit_of_measurement = unit
         self._key = key
-        self._attr_unique_id = f"hailin_modbus_{key}"
+        self._attr_unique_id = f"hailin_modbus_{host}_{port}_{key}"
+        self._attr_device_info = device_info
 
         if key == "pm25":
             self._attr_device_class = SensorDeviceClass.PM25
