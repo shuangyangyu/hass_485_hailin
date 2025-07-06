@@ -3,6 +3,7 @@ import os
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.typing import ConfigType
+from homeassistant.components.http import StaticPathConfig
 
 DOMAIN = "hailin_modbus"
 
@@ -10,11 +11,9 @@ async def async_setup(hass: HomeAssistant, config: ConfigType):
     """Set up the Hailin Modbus component."""
     # 注册静态文件服务，用于提供图标
     integration_dir = os.path.dirname(__file__)
-    hass.http.register_static_path(
-        f"/local/{DOMAIN}",
-        integration_dir,
-        cache_headers=True,
-    )
+    await hass.http.async_register_static_paths([
+        StaticPathConfig(f"/local/{DOMAIN}", integration_dir, True)
+    ])
     return True
 
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry):
