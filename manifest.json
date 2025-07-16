@@ -1,6 +1,6 @@
 {
     "domain": "hailin_modbus",
-    "name": "Hailin Modbus Sensor",
+    "name": "海林环境监测仪",
     "documentation": "https://github.com/shuangyangyu/hailin_modbus",
     "dependencies": [],
     "codeowners": ["@shuangyangyu"],

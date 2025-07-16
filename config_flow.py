@@ -1,21 +1,28 @@
 """Config flow for Hailin Modbus integration."""
+from __future__ import annotations
+
+from typing import Any
+
 import voluptuous as vol
 
 from homeassistant import config_entries
 from homeassistant.const import CONF_HOST, CONF_PORT
 from homeassistant.core import HomeAssistant
 from homeassistant.data_entry_flow import FlowResult
+from homeassistant.helpers import selector
 
-from .sensor import TCPService
+from .tcp_client import TCPService
 
+CONF_ENABLE_POLLING = "enable_polling"
 DOMAIN = "hailin_modbus"
+
 
 class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
     """Handle a config flow for Hailin Modbus."""
 
     VERSION = 1
     
-    async def async_step_user(self, user_input=None):
+    async def async_step_user(self, user_input: dict[str, Any] | None = None) -> FlowResult:
         """Handle the initial step."""
         errors = {}
         
@@ -37,16 +44,26 @@ class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
                 errors["base"] = "unknown"
 
         data_schema = vol.Schema({
-            vol.Required(CONF_HOST): str,
-            vol.Required(CONF_PORT, default=502): int,
+            vol.Required(CONF_HOST): selector.TextSelector(
+                selector.TextSelectorConfig(
+                    type=selector.TextSelectorType.TEXT
+                )
+            ),
+            vol.Required(CONF_PORT, default=502): selector.NumberSelector(
+                selector.NumberSelectorConfig(
+                    min=1,
+                    max=65535,
+                    mode=selector.NumberSelectorMode.BOX
+                )
+            ),
+            vol.Required(CONF_ENABLE_POLLING, default=False): selector.BooleanSelector(),
         })
 
         return self.async_show_form(
-            step_id="user", 
-            data_schema=data_schema, 
+            step_id="user",
+            data_schema=data_schema,
             errors=errors,
             description_placeholders={
-                "device_name": "海林环境监测仪",
-                "device_icon": "mdi:home-thermometer-outline"
+                "enable_polling_help": "启用主动轮询：建议在没有其他客户端轮询设备时开启；如有其他客户端在轮询，可关闭以节省资源。"
             }
         )
