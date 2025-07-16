@@ -37,7 +37,7 @@ class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
                     errors["base"] = "cannot_connect"
                 else:
                     return self.async_create_entry(
-                        title="海林环境监测仪", 
+                        title="Hailin Environmental Monitor", 
                         data=user_input
                     )
             except Exception:
@@ -62,8 +62,5 @@ class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
         return self.async_show_form(
             step_id="user",
             data_schema=data_schema,
-            errors=errors,
-            description_placeholders={
-                "enable_polling_help": "启用主动轮询：建议在没有其他客户端轮询设备时开启；如有其他客户端在轮询，可关闭以节省资源。"
-            }
+            errors=errors
         )

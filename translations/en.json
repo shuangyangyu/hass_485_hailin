@@ -3,25 +3,24 @@
     "step": {
       "user": {
         "title": "Configure Hailin Environmental Monitor",
-        "description": "🔧 Set up connection parameters for Hailin Modbus environmental monitor\n\n💡 {enable_polling_help}\n\n📡 Please enter the device IP address and port",
         "data": {
           "host": "Device IP Address",
           "port": "Port Number",
           "enable_polling": "Enable Active Polling"
         },
         "data_description": {
-          "host": "IP address of the Hailin environmental monitor (e.g., 192.168.1.100)",
+          "host": "IP address of the Hailin environmental monitor",
           "port": "Device port number (default 502)",
-          "enable_polling": "When enabled, the driver will actively send Modbus query requests to get data. Recommended to enable if no other clients are polling the device; can be disabled if other clients are already polling to save resources."
+          "enable_polling": "Enable active polling for data collection"
         }
       }
     },
     "error": {
-      "cannot_connect": "❌ Cannot connect to device, please check IP address and port",
-      "unknown": "❓ Unknown error, please try again"
+      "cannot_connect": "Cannot connect to device",
+      "unknown": "Unknown error"
     },
     "abort": {
-      "single_instance_allowed": "⚠️ Only one Hailin environmental monitor device allowed"
+      "single_instance_allowed": "Only one device allowed"
     }
   }
 } 

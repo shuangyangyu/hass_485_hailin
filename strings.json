@@ -1,28 +1,27 @@
 {
-  "title": "海林环境监测仪",
+  "title": "Hailin Environmental Monitor",
   "config": {
     "step": {
       "user": {
-        "title": "配置海林环境监测仪",
-        "description": "🔧 设置海林Modbus环境监测仪的连接参数\n\n💡 {enable_polling_help}\n\n📡 请填写设备的IP地址和端口号",
+        "title": "Configure Hailin Environmental Monitor",
         "data": {
-          "host": "设备IP地址",
-          "port": "端口号",
-          "enable_polling": "启用主动轮询"
+          "host": "Device IP Address",
+          "port": "Port Number",
+          "enable_polling": "Enable Active Polling"
         },
         "data_description": {
-          "host": "海林环境监测仪的IP地址（例如：192.168.1.100）",
-          "port": "设备的端口号（默认502）",
-          "enable_polling": "启用后驱动会主动发送Modbus查询请求获取数据。建议在没有其他客户端轮询设备时开启；如有其他客户端在轮询，可关闭此选项以节省资源。"
+          "host": "IP address of the Hailin environmental monitor",
+          "port": "Device port number (default 502)",
+          "enable_polling": "Enable active polling for data collection"
         }
       }
     },
     "error": {
-      "cannot_connect": "❌ 无法连接到设备，请检查IP地址和端口号",
-      "unknown": "❓ 未知错误，请重试"
+      "cannot_connect": "Cannot connect to device",
+      "unknown": "Unknown error"
     },
     "abort": {
-      "single_instance_allowed": "⚠️ 只允许配置一个海林环境监测仪设备"
+      "single_instance_allowed": "Only one device allowed"
     }
   }
 } 
