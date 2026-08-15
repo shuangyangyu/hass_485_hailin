@@ -1,7 +1,7 @@
 {
     "domain": "hailin_modbus",
     "name": "Hailin Environmental Monitor",
-    "documentation": "https://github.com/shuangyangyu/hailin_modbus",
+    "documentation": "https://github.com/shuangyangyu/hass_485_hailin",
     "dependencies": [],
     "codeowners": ["@shuangyangyu"],
     "requirements": [],
